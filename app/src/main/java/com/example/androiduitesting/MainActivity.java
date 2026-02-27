@@ -2,6 +2,7 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
+import android.content.Intent;
 public class MainActivity extends AppCompatActivity {
     // Declare the variables so that you will be able to reference it later.
     ListView cityList;
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            String clickedCity = dataList.get(position);
+
+            Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+            intent.putExtra(ShowActivity.EXTRA_CITY_NAME, clickedCity);
+            startActivity(intent);
+        });
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
